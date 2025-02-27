@@ -1,10 +1,10 @@
 package app.DAO;
 
 import app.Entities.Movie;
+import app.config.HibernateConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class MovieDAO {
@@ -12,7 +12,7 @@ public class MovieDAO {
     private EntityManager entityManager;
 
     public MovieDAO() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("your-persistence-unit");
+        this.entityManagerFactory = HibernateConfig.getEntityManagerFactory();
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 

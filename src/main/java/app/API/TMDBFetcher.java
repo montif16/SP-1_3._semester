@@ -1,6 +1,7 @@
 package app.API;
 
 import app.DTO.MovieDTO;
+import app.Services.MovieService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -8,8 +9,35 @@ import java.net.URL;
 import java.util.Scanner;
 
 public class TMDBFetcher {
+    private static final MovieService movieService = new MovieService();
     private static final String API_KEY = System.getenv("API_Key");
     private static final String BASE_URL = "https://api.themoviedb.org/3/movie/";
+
+    public static void main(String[] args) {
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            System.out.println("Error: API key is missing!");
+            return;
+        }
+        // Test fetching a movie (Example: Fight Club, ID = 550)
+        MovieDTO movie = fetchMovieById(550L);
+
+        if (movie != null) {
+            System.out.println("Movie Title: " + movie.getTitle());
+            System.out.println("Release Date: " + movie.getRelease_date());
+            System.out.println("Overview: " + movie.getOverview());
+            System.out.println("Rating: " + movie.getVote_average());
+            System.out.println("Genres (IDs): " + movie.getGenres());
+            movieService.saveMovieFromDTO(movie);
+            System.out.println(
+                    "\n" +
+                    "################\n" +
+                    "Movie Saved to database: " + movie.getTitle() +
+                    "\n################"
+            );
+        } else {
+            System.out.println("Failed to fetch movie.");
+        }
+    }
 
     public static MovieDTO fetchMovieById(Long movieId) {
         String urlString = BASE_URL + movieId + "?api_key=" + API_KEY;
@@ -42,21 +70,6 @@ public class TMDBFetcher {
         } catch (IOException e) {
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public static void main(String[] args) {
-        // Test fetching a movie (Example: Fight Club, ID = 550)
-        MovieDTO movie = fetchMovieById(550L);
-
-        if (movie != null) {
-            System.out.println("Movie Title: " + movie.getTitle());
-            System.out.println("Release Date: " + movie.getRelease_date());
-            System.out.println("Overview: " + movie.getOverview());
-            System.out.println("Rating: " + movie.getVote_average());
-            System.out.println("Genres (IDs): " + movie.getGenres());
-        } else {
-            System.out.println("Failed to fetch movie.");
         }
     }
 }
