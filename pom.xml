@@ -16,6 +16,7 @@
         <hibernate-version>6.6.6.Final</hibernate-version>
         <junit.version>5.11.4</junit.version>
         <postgres.version>42.7.5</postgres.version>
+        <jackson.version>2.18.2</jackson.version>
 
     </properties>
     <dependencies>
@@ -58,6 +59,16 @@
             <artifactId>junit-jupiter-params</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 

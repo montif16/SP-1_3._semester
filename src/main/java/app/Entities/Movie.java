@@ -15,7 +15,7 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private double voteAverage;
     private String title;
     private LocalDate releaseDate;
     private String overview;
