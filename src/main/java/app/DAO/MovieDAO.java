@@ -1,10 +1,9 @@
 package app.DAO;
 
 import app.Entities.Movie;
-import app.config.HibernateConfig;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.NoResultException;
+import jakarta.persistence.Persistence;
 import java.util.List;
 
 public class MovieDAO {
@@ -12,7 +11,7 @@ public class MovieDAO {
     private EntityManager entityManager;
 
     public MovieDAO() {
-        this.entityManagerFactory = HibernateConfig.getEntityManagerFactory();
+        this.entityManagerFactory = Persistence.createEntityManagerFactory("your-persistence-unit");
         this.entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -28,22 +27,6 @@ public class MovieDAO {
 
     public List<Movie> findAll() {
         return entityManager.createQuery("SELECT m FROM Movie m", Movie.class).getResultList();
-    }
-
-    public Movie findByTitle(String title) {
-        try {
-            return entityManager.createQuery("SELECT m FROM Movie m WHERE m.title = :title", Movie.class)
-                    .setParameter("title", title)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        }
-    }
-
-    public void update(Movie movie) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(movie);
-        entityManager.getTransaction().commit();
     }
 
     public void delete(Long id) {

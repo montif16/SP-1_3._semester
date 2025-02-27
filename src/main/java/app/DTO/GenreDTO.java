@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GenreDTO {
-    private int id;
+    private long id;
     private String name;
     @Override
     public String toString() {

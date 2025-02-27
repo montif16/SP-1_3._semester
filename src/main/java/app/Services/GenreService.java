@@ -10,11 +10,11 @@ public class GenreService {
         this.genreDAO = new GenreDAO();
     }
 
-    public void addGenre(Genre genre) {
+    public void saveGenre(Genre genre) {
         genreDAO.save(genre);
     }
 
-    public Genre getGenreByName(String name) {
-        return genreDAO.findByName(name);
+    public Genre getGenreById(Long id) {
+        return genreDAO.findById(id);
     }
 }

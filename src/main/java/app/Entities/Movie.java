@@ -18,8 +18,9 @@ public class Movie {
     private double voteAverage;
     private String title;
     private LocalDate releaseDate;
+
+    @Column(length = 10000)
     private String overview;
-    private Double rating;
 
     @ManyToMany
     @JoinTable(
