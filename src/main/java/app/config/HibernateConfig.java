@@ -11,6 +11,11 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.Properties;
 
+import app.Entities.Movie;
+import app.Entities.Genre;
+import app.Entities.Actor;
+import app.Entities.Director;
+
 public class HibernateConfig {
     private static EntityManagerFactory emf;
     private static EntityManagerFactory emfTest;
@@ -41,6 +46,10 @@ public class HibernateConfig {
     // TODO: IMPORTANT: Add Entity classes here for them to be registered with Hibernate
     private static void getAnnotationConfiguration(Configuration configuration) {
         // configuration.addAnnotatedClass(Point.class);
+        configuration.addAnnotatedClass(Movie.class);
+        configuration.addAnnotatedClass(Genre.class);
+        configuration.addAnnotatedClass(Actor.class);
+        configuration.addAnnotatedClass(Director.class);
     }
 
     private static EntityManagerFactory createEMF(boolean forTest) {
